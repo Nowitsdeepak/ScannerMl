@@ -158,7 +158,7 @@ private fun TopBar(
                     append("\n- Deepak Tiwari")
                 },
                 fontWeight = FontWeight.Normal,
-                lineHeight = 1.5.em,
+                lineHeight = 2.em,
                 fontSize = 8.sp
             )
         },
