@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import androidx.camera.core.Camera
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.isSpecified
 import androidx.lifecycle.ViewModel
 import com.ml.android.scanner.DocumentScannerAnalyzer
 import com.ml.android.scanner.DocumentScannerConfig
@@ -47,6 +46,7 @@ sealed class ScannerUiEvent {
     data class OnDocumentDetected(val document: DetectedDocument?) : ScannerUiEvent()
     data class OnDocumentCaptured(val bitmap: Bitmap, val context: Context) : ScannerUiEvent()
     data class OnCameraReady(val camera: Camera) : ScannerUiEvent()
+    data class OnCameraZoom(val zoom: Float) : ScannerUiEvent()
     data class OnAnalyzerReady(val analyzer: DocumentScannerAnalyzer) : ScannerUiEvent()
     data class LoadImageList(val context: Context) : ScannerUiEvent()
 }
@@ -120,6 +120,11 @@ class ScannerViewModel : ViewModel() {
                     )
                 }
             }
+
+            is ScannerUiEvent.OnCameraZoom -> {
+                camera?.cameraControl?.setLinearZoom(event.zoom / 20f)
+            }
+
         }
     }
 
